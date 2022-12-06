@@ -1,19 +1,12 @@
-extends RigidBody2D
+extends "res://Entity.gd"
 
+# Player Variables
+var gun = []
+var amo_bag = []
 
-# Declare member variables here. Examples:
-var speed = 600
-var screen_size
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	screen_size = get_viewport_rect().size
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var velocity = Vector2.ZERO # Player move vector
+# Player Motion
+func move_input(delta):
+	velocity = Vector2.ZERO # Player move vector
 	if(Input.is_action_pressed("move_up")):
 		velocity.y -= 1
 	if(Input.is_action_pressed("move_down")):
@@ -22,13 +15,26 @@ func _process(delta):
 		velocity.x += 1
 	if(Input.is_action_pressed("move_left")):
 		velocity.x -= 1
+
+func gun_controller():
+	# when click, get mouse pos
+	var target = get_global_mouse_position()
+	var bullet_vec = Vector2(target.x - global_position.x, target.y - global_position.y)
 	
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-		$AnimatedSprite.play()
-	else:
-		$AnimatedSprite.stop()
-		
-	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	# summon bullet and set velocity vector towards mouse pos at velocity
+	var bullet = KinematicBody2D.new()
+	var bullet_sprite = Sprite.new()
+	bullet_sprite.texture = load("res://bullet.png")
+	bullet.set_script(load("res://Bullet.gd"))
+	bullet.add_child(bullet_sprite)
+	bullet.velocity = bullet_vec
+	add_child(bullet)
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	move_input(delta)
+	if Input.is_action_pressed("click"):
+		gun_controller()
