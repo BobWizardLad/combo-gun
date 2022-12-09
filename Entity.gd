@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # Character Variables
-var speed = 600
+var speed = 400
 var screen_size
 var velocity = Vector2()
 
@@ -15,5 +15,3 @@ func _process(delta):
 	velocity = velocity.normalized() * speed
 		
 	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
