@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Strange Corridoors.mp3-1dbaf003d50640b196315a8346f669d5.mp3str"
+
+[deps]
+
+source_file="res://Strange Corridoors.mp3"
+dest_files=[ "res://.import/Strange Corridoors.mp3-1dbaf003d50640b196315a8346f669d5.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
