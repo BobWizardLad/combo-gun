@@ -6,6 +6,11 @@ var fire_rate = 20
 var cooldown = fire_rate # Frames between shots
 var amo_bag = []
 
+# Preloaded Assets
+var gunshot_rifle = preload("res://gunshot_rifle.mp3")
+
+
+
 # Player Motion
 func move_input(delta):
 	velocity = Vector2.ZERO # Player move vector
@@ -34,6 +39,8 @@ func fire_bullet(target_vector, speed):
 
 func gun_controller():
 	if Input.is_action_pressed("click") and cooldown <= 0:
+		$PlayerSounds.stream = gunshot_rifle
+		$PlayerSounds.play()
 		fire_bullet(get_global_mouse_position(), 900)
 		cooldown = fire_rate
 	cooldown -= 1
