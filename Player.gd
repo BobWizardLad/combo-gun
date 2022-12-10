@@ -8,8 +8,7 @@ var amo_bag = []
 
 # Preloaded Assets
 var gunshot_rifle = preload("res://gunshot_rifle.mp3")
-
-
+var scene_resource = preload("res://Bullet.tscn")
 
 # Player Motion
 func move_input(delta):
@@ -26,11 +25,7 @@ func move_input(delta):
 # Take in bullet target and speed, and spawn the bullet in the world 
 func fire_bullet(target_vector, speed):
 	var bullet_vec = Vector2(target_vector.x - global_position.x, target_vector.y - global_position.y).normalized()
-	var bullet = KinematicBody2D.new()
-	var bullet_sprite = Sprite.new()
-	bullet_sprite.texture = load("res://bullet.png")
-	bullet.set_script(load("res://Bullet.gd"))
-	bullet.add_child(bullet_sprite)
+	var bullet = scene_resource.instance()
 	bullet.velocity = bullet_vec
 	bullet.speed = speed
 	bullet.position = position
