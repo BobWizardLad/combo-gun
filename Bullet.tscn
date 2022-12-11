@@ -4,19 +4,27 @@
 [ext_resource path="res://bullet.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 5.01044
-height = 5.95808
+radius = 5.0
+height = 8.0
 
-[node name="Bullet" type="KinematicBody2D"]
+[node name="Bullet" type="RigidBody2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.56731
+[node name="Lifespan" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="Lifespan" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
+[connection signal="area_entered" from="Area2D" to="." method="elim_target"]
