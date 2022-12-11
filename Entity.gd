@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # Character Variables
 var speed = 400
+var hostile = false
 var screen_size
 var velocity = Vector2()
 

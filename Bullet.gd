@@ -15,8 +15,9 @@ func despawn():
 func elim_target(var1):
 	var targets = $Area2D.get_overlapping_areas()
 	for target in targets:
-		target.get_parent().queue_free()
-	despawn()
+		if target.get_parent().hostile == true:
+			target.get_parent().queue_free()
+			despawn()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
