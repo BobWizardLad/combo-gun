@@ -2,10 +2,7 @@ extends Node2D
 
 
 # Need all three enemies to be gone
-var goal1 = false
-var goal2 = false
-var goal3 = false
-
+var run_once = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,11 +11,13 @@ func _ready():
 
 # Check to see if the enemies are gone, if so Display you win
 func _process(delta):
-	if not self.has_node("Enemy"):
-		goal1 = true
-	if not self.has_node("Enemy3"):
-		goal2 = true
-	if not self.has_node("Enemy4"):
-		goal3 = true
-	if goal1 and goal2 and goal3:
+	print(self.get_children())
+	var nodes = [
+		self.has_node("Enemy"),
+		self.has_node('Enemy3'),
+		self.has_node('Enemy4')
+	]
+	if nodes.count(false) == len(nodes) and run_once == true:
 		$YouWin.visible = true
+		$Player.free()
+		run_once = false
